@@ -1,0 +1,10 @@
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.Properties.Resources.resources
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.Settings.resources
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.csproj.GenerateResource.Cache
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.MainForm.resources
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\bin\Debug\SerialPortTest.exe
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\bin\Debug\SerialPortTest.pdb
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.exe
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.pdb
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.csproj.AssemblyReference.cache
+C:\Users\lovel\Desktop\Ashok\SerialLoopbackTest\SerialLoopbackTest\obj\x86\Debug\SerialPortTest.csproj.CoreCompileInputs.cache
