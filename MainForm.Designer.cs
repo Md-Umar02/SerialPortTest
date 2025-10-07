@@ -33,6 +33,10 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.comboBoxPorts = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdoSenderHex = new System.Windows.Forms.RadioButton();
+            this.rdoSenderText = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtCount = new System.Windows.Forms.TextBox();
             this.txtOffset = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,12 +45,12 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.cmbReadMethod = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rdoReceiverHex = new System.Windows.Forms.RadioButton();
+            this.rdoReceiverText = new System.Windows.Forms.RadioButton();
             this.btnOpenReceiver = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.receiverPorts = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -88,6 +92,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rdoSenderHex);
+            this.groupBox1.Controls.Add(this.rdoSenderText);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtCount);
@@ -99,12 +105,52 @@
             this.groupBox1.Controls.Add(this.txtSend);
             this.groupBox1.Controls.Add(this.comboBoxPorts);
             this.groupBox1.Controls.Add(this.btnSend);
-            this.groupBox1.Location = new System.Drawing.Point(12, 49);
+            this.groupBox1.Location = new System.Drawing.Point(12, 31);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(438, 337);
+            this.groupBox1.Size = new System.Drawing.Size(438, 349);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SENDER";
+            // 
+            // rdoSenderHex
+            // 
+            this.rdoSenderHex.AutoSize = true;
+            this.rdoSenderHex.Location = new System.Drawing.Point(77, 314);
+            this.rdoSenderHex.Name = "rdoSenderHex";
+            this.rdoSenderHex.Size = new System.Drawing.Size(44, 17);
+            this.rdoSenderHex.TabIndex = 15;
+            this.rdoSenderHex.TabStop = true;
+            this.rdoSenderHex.Text = "Hex";
+            this.rdoSenderHex.UseVisualStyleBackColor = true;
+            // 
+            // rdoSenderText
+            // 
+            this.rdoSenderText.AutoSize = true;
+            this.rdoSenderText.Location = new System.Drawing.Point(16, 314);
+            this.rdoSenderText.Name = "rdoSenderText";
+            this.rdoSenderText.Size = new System.Drawing.Size(46, 17);
+            this.rdoSenderText.TabIndex = 14;
+            this.rdoSenderText.TabStop = true;
+            this.rdoSenderText.Text = "Text";
+            this.rdoSenderText.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(296, 136);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Count";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(296, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Offset";
             // 
             // txtCount
             // 
@@ -170,18 +216,42 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.rdoReceiverHex);
+            this.groupBox2.Controls.Add(this.rdoReceiverText);
             this.groupBox2.Controls.Add(this.btnOpenReceiver);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.cmbReadMethod);
             this.groupBox2.Controls.Add(this.btnClear);
             this.groupBox2.Controls.Add(this.receiverPorts);
             this.groupBox2.Controls.Add(this.txtReceived);
-            this.groupBox2.Location = new System.Drawing.Point(480, 49);
+            this.groupBox2.Location = new System.Drawing.Point(480, 31);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(441, 337);
+            this.groupBox2.Size = new System.Drawing.Size(441, 349);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RECEIVER";
+            // 
+            // rdoReceiverHex
+            // 
+            this.rdoReceiverHex.AutoSize = true;
+            this.rdoReceiverHex.Location = new System.Drawing.Point(100, 314);
+            this.rdoReceiverHex.Name = "rdoReceiverHex";
+            this.rdoReceiverHex.Size = new System.Drawing.Size(44, 17);
+            this.rdoReceiverHex.TabIndex = 11;
+            this.rdoReceiverHex.TabStop = true;
+            this.rdoReceiverHex.Text = "Hex";
+            this.rdoReceiverHex.UseVisualStyleBackColor = true;
+            // 
+            // rdoReceiverText
+            // 
+            this.rdoReceiverText.AutoSize = true;
+            this.rdoReceiverText.Location = new System.Drawing.Point(25, 314);
+            this.rdoReceiverText.Name = "rdoReceiverText";
+            this.rdoReceiverText.Size = new System.Drawing.Size(46, 17);
+            this.rdoReceiverText.TabIndex = 10;
+            this.rdoReceiverText.TabStop = true;
+            this.rdoReceiverText.Text = "Text";
+            this.rdoReceiverText.UseVisualStyleBackColor = true;
             // 
             // btnOpenReceiver
             // 
@@ -220,24 +290,6 @@
             this.receiverPorts.Name = "receiverPorts";
             this.receiverPorts.Size = new System.Drawing.Size(88, 21);
             this.receiverPorts.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(296, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Offset";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(296, 136);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "Count";
             // 
             // MainForm
             // 
@@ -280,6 +332,10 @@
         private System.Windows.Forms.TextBox txtOffset;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton rdoSenderHex;
+        private System.Windows.Forms.RadioButton rdoSenderText;
+        private System.Windows.Forms.RadioButton rdoReceiverHex;
+        private System.Windows.Forms.RadioButton rdoReceiverText;
     }
 }
 

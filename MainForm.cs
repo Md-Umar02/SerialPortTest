@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -7,7 +8,8 @@ namespace SerialPortTest
 {
     public partial class MainForm : Form
     {
-        SerialPort serialPort = new SerialPort();
+        SerialPort senderPort = new SerialPort();
+        SerialPort receiverPort = new SerialPort();
 
         public MainForm()
         {
@@ -18,9 +20,6 @@ namespace SerialPortTest
         {
             comboBoxPorts.Items.AddRange(SerialPort.GetPortNames());
             receiverPorts.Items.AddRange(SerialPort.GetPortNames());
-
-            //comboBoxPorts.SelectedIndex = comboBoxPorts.Items.Count > 0 ? 0 : -1;
-            //receiverPorts.SelectedIndex = receiverPorts.Items.Count > 0 ? 0 : -1;
 
             if (comboBoxPorts.Items.Count == 0 || receiverPorts.Items.Count == 0)
                 MessageBox.Show("No serial ports found.");
@@ -42,33 +41,63 @@ namespace SerialPortTest
                     return;
                 }
 
-                if (!serialPort.IsOpen)
+                if (!senderPort.IsOpen)
                 {
-                    serialPort.PortName = comboBoxPorts.SelectedItem.ToString();
-                    serialPort.DataReceived -= SerialPort_DataReceived;
-                    serialPort.DataReceived += SerialPort_DataReceived;
-                    serialPort.Open();
+                    senderPort.PortName = comboBoxPorts.SelectedItem.ToString();
+                    senderPort.Open();
                     btnOpen.Text = "Close";
                     comboBoxPorts.Enabled = false;
                 }
                 else
                 {
-                    serialPort.Close();
+                    senderPort.Close();
                     btnOpen.Text = "Open";
                     comboBoxPorts.Enabled = true;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error opening port: " + ex.Message);
+                MessageBox.Show("Error opening sender port: " + ex.Message);
+            }
+        }
+
+        private void btnOpenReceiver_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (receiverPorts.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a COM port.");
+                    return;
+                }
+
+                if (!receiverPort.IsOpen)
+                {
+                    receiverPort.PortName = receiverPorts.SelectedItem.ToString();
+                    receiverPort.DataReceived -= ReceiverPort_DataReceived;
+                    receiverPort.DataReceived += ReceiverPort_DataReceived;
+                    receiverPort.Open();
+                    btnOpenReceiver.Text = "Close";
+                    receiverPorts.Enabled = false;
+                }
+                else
+                {
+                    receiverPort.Close();
+                    btnOpenReceiver.Text = "Open";
+                    receiverPorts.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening receiver port: " + ex.Message);
             }
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            if (!serialPort.IsOpen)
+            if (!senderPort.IsOpen)
             {
-                MessageBox.Show("Port is not open.");
+                MessageBox.Show("Sender port is not open.");
                 return;
             }
 
@@ -81,11 +110,11 @@ namespace SerialPortTest
                 switch (cmbWriteMethod.SelectedItem?.ToString())
                 {
                     case "Write":
-                        serialPort.Write(text);
+                        senderPort.Write(text);
                         break;
 
                     case "WriteLine":
-                        serialPort.WriteLine(text);
+                        senderPort.WriteLine(text);
                         break;
 
                     case "WriteCharArray":
@@ -95,7 +124,7 @@ namespace SerialPortTest
                             MessageBox.Show("Invalid offset or count for char array.");
                             return;
                         }
-                        serialPort.Write(chars, offset, count);
+                        senderPort.Write(chars, offset, count);
                         break;
 
                     case "WriteByteArray":
@@ -105,7 +134,7 @@ namespace SerialPortTest
                             MessageBox.Show("Invalid offset or count for byte array.");
                             return;
                         }
-                        serialPort.Write(bytes, offset, count);
+                        senderPort.Write(bytes, offset, count);
                         break;
 
                     default:
@@ -119,7 +148,7 @@ namespace SerialPortTest
             }
         }
 
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void ReceiverPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             Invoke(new Action(() =>
             {
@@ -136,29 +165,29 @@ namespace SerialPortTest
                         switch (cmbReadMethod.SelectedItem.ToString())
                         {
                             case "ReadByte":
-                                if (serialPort.BytesToRead > 0)
+                                if (receiverPort.BytesToRead > 0)
                                 {
-                                    int byteValue = serialPort.ReadByte();
+                                    int byteValue = receiverPort.ReadByte();
                                     if (byteValue == 13 || byteValue == 10) return;
                                     data = $"[Byte] {byteValue} (char: {(char)byteValue})";
                                 }
                                 break;
 
                             case "ReadChar":
-                                if (serialPort.BytesToRead > 0)
+                                if (receiverPort.BytesToRead > 0)
                                 {
-                                    int charValue = serialPort.ReadChar();
+                                    int charValue = receiverPort.ReadChar();
                                     if (charValue == 13 || charValue == 10) return;
                                     data = $"[Char] {(char)charValue}";
                                 }
                                 break;
 
                             case "ReadExisting":
-                                data = "[Existing] " + serialPort.ReadExisting();
+                                data = "[Existing] " + receiverPort.ReadExisting();
                                 break;
 
                             case "ReadLine":
-                                data = "[Line] " + serialPort.ReadLine();
+                                data = "[Line] " + receiverPort.ReadLine();
                                 break;
                         }
 
@@ -179,16 +208,16 @@ namespace SerialPortTest
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            if (serialPort.IsOpen)
+            if (senderPort.IsOpen)
             {
                 Settings settings = new Settings();
                 if (settings.ShowDialog() == DialogResult.OK)
                 {
-                    serialPort.BaudRate = settings.SelectedBaudRate;
-                    serialPort.DataBits = settings.SelectedDataBits;
-                    serialPort.Parity = settings.SelectedParity;
-                    serialPort.StopBits = settings.SelectedStopBits;
-                    serialPort.Handshake = settings.SelectedHandshake;
+                    senderPort.BaudRate = settings.SelectedBaudRate;
+                    senderPort.DataBits = settings.SelectedDataBits;
+                    senderPort.Parity = settings.SelectedParity;
+                    senderPort.StopBits = settings.SelectedStopBits;
+                    senderPort.Handshake = settings.SelectedHandshake;
 
                     MessageBox.Show("Settings applied.");
                 }
@@ -196,38 +225,6 @@ namespace SerialPortTest
             else
             {
                 MessageBox.Show("Open Sending Port.");
-            }
-        }
-
-        private void btnOpenReceiver_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (receiverPorts.SelectedItem == null)
-                {
-                    MessageBox.Show("Please select a COM port.");
-                    return;
-                }
-
-                if (!serialPort.IsOpen)
-                {
-                    serialPort.PortName = receiverPorts.SelectedItem.ToString();
-                    serialPort.DataReceived -= SerialPort_DataReceived;
-                    serialPort.DataReceived += SerialPort_DataReceived;
-                    serialPort.Open();
-                    btnOpenReceiver.Text = "Close";
-                    receiverPorts.Enabled = false;
-                }
-                else
-                {
-                    serialPort.Close();
-                    btnOpenReceiver.Text = "Open";
-                    receiverPorts.Enabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error opening port: " + ex.Message);
             }
         }
     }
